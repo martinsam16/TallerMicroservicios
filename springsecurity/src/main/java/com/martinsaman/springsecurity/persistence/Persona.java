@@ -1,29 +1,25 @@
 package com.martinsaman.springsecurity.persistence;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-@Entity
+@Document(collection = "Persona")
 @Data
 public class Persona implements Serializable {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    private String id;
 
     @NotEmpty
     private String nombre;
     @NotEmpty
     private String apellidos;
     @NotEmpty
-    @Column(unique = true)
     private String dni;
 
     @NotNull
@@ -32,7 +28,7 @@ public class Persona implements Serializable {
     public Persona() {
     }
 
-    public Persona(Long id, String nombre, String apellidos, String dni, Boolean isUser) {
+    public Persona(String id, String nombre, String apellidos, String dni, Boolean isUser) {
         this.id = id;
         this.apellidos = apellidos;
         this.dni = dni;

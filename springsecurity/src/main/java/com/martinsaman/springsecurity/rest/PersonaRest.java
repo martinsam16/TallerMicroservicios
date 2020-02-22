@@ -20,7 +20,7 @@ public class PersonaRest {
     }
 
     @GetMapping("/{id}")
-    public Persona findOne(@PathVariable("id") Long id) {
+    public Persona findOne(@PathVariable("id") String id) {
         return repo.findById(id).orElse(null);
     }
 
@@ -35,7 +35,7 @@ public class PersonaRest {
     }
 
     @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable("id") Long id) {
+    public void eliminar(@PathVariable("id") String id) {
         repo.deleteById(id);
     }
 
