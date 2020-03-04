@@ -1,0 +1,12 @@
+server:
+  port: 3011
+spring:
+  data:
+    cassandra:
+      keyspace-name: mykeyspace
+      contact-points: localhost
+      port: 9142
+      schema-action: none
+#      username:
+#      password:
+      cluster-name: Test Cluster
