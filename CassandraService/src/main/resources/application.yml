@@ -4,9 +4,9 @@ spring:
   data:
     cassandra:
       keyspace-name: mykeyspace
-      contact-points: localhost
-      port: 9142
+      contact-points: 35.237.68.44
+      port: 9042 #9142
       schema-action: none
-#      username:
-#      password:
-      cluster-name: Test Cluster
+      #      username: cassandra
+      #      password:
+      cluster-name: MyCluster

@@ -50,4 +50,6 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
     public String[] getEntityBasePackages() {
         return new String[]{basePackages};
     }
+
+
 }
