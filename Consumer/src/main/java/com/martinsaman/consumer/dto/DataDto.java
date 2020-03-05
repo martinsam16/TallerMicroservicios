@@ -1,6 +1,6 @@
-package com.martinsaman.producerkafka.dto;
+package com.martinsaman.consumer.dto;
 
-import com.martinsaman.producerkafka.types.DatabaseEvent;
+import com.martinsaman.consumer.types.DatabaseEvent;
 
 public class DataDto {
 
@@ -31,4 +31,3 @@ public class DataDto {
                 '}';
     }
 }
-

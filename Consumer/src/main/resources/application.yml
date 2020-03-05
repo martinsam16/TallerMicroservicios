@@ -1,0 +1,23 @@
+server:
+  port: 3101
+
+spring:
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: com.martinsaman
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+
+##Crear topico
+# bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic DatabaseTopic
+##Borrar topico
+# bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic DatabaseTopic
+
+##Enviar Mensaje (Json)
+#bin/kafka-console-producer.sh --broker-list localhost:9092 --topic DatabaseTopic
+
+##Ver mensajes
+# bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic DatabaseTopic --from-beginning
