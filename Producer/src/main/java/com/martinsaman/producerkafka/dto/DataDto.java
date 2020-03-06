@@ -7,6 +7,14 @@ public class DataDto {
     private DatabaseEvent databaseEvent;
     private PersonaDto persona;
 
+    public DataDto() {
+    }
+
+    public DataDto(DatabaseEvent databaseEvent, PersonaDto persona) {
+        this.databaseEvent = databaseEvent;
+        this.persona = persona;
+    }
+
     public DatabaseEvent getDatabaseEvent() {
         return databaseEvent;
     }
