@@ -4,7 +4,7 @@ server:
 spring:
   kafka:
     producer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: 34.68.95.248:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       #value-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
@@ -13,7 +13,7 @@ topic:
   name: DatabaseTopic
 
 ##Crear topico
-# bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic DatabaseTopic
-
+#bin/kafka-topics.sh --create --zookeeper 34.68.95.248:2181 --replication-factor 1 --partitions 1 --topic DatabaseTopic
 ##Ver mensajes
-# bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic DatabaseTopic --from-beginning
+#bin/kafka-console-consumer.sh --bootstrap-server 34.68.95.248:9092 --topic DatabaseTopic --from-beginning
+

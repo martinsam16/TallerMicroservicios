@@ -4,7 +4,7 @@ spring:
   data:
     cassandra:
       keyspace-name: mykeyspace
-      contact-points: 35.237.68.44
+      contact-points: 34.68.95.248
       port: 9042 #9142
       schema-action: none
       #      username: cassandra
