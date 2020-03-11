@@ -1,5 +1,6 @@
 package com.martinsaman.ventas.services;
 
+import com.martinsaman.ventas.persistence.ILibro;
 import com.martinsaman.ventas.persistence.IVenta;
 import com.martinsaman.ventas.persistence.Venta;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,25 +15,29 @@ import java.util.Optional;
 public class VentaService {
 
     @Autowired
-    private IVenta repo;
+    private IVenta repoVenta;
+
+    @Autowired
+    private ILibro repoLibro;
 
     public ResponseEntity<List<Venta>> findAll(){
-        return new ResponseEntity<>(repo.findAll(),HttpStatus.OK);
+        return new ResponseEntity<>(repoVenta.findAll(),HttpStatus.OK);
     }
 
     public ResponseEntity<Venta> save(
             Venta venta
     ) {
         venta.calcularTotal();
-        return new ResponseEntity<>(repo.save(venta), HttpStatus.CREATED);
+        repoLibro.save(venta.getLibro());   //TODO sync con kafka
+        return new ResponseEntity<>(repoVenta.save(venta), HttpStatus.CREATED);
     }
 
     public ResponseEntity<Venta> update(
             Venta venta
     ){
-        Optional<Venta> ventaEncontrado = repo.findById(venta.getId());
+        Optional<Venta> ventaEncontrado = repoVenta.findById(venta.getId());
         if (ventaEncontrado.isPresent()){
-            return new ResponseEntity<>(repo.save(venta),HttpStatus.CREATED);
+            return new ResponseEntity<>(repoVenta.save(venta),HttpStatus.CREATED);
         }else{
             return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
         }
@@ -41,7 +46,7 @@ public class VentaService {
     public ResponseEntity<Void> delete(
             Venta venta
     ){
-        repo.delete(venta);
+        repoVenta.delete(venta);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

@@ -1,5 +1,7 @@
 package com.martinsaman.libreria.services;
 
+import com.martinsaman.libreria.clients.VentaClient;
+import com.martinsaman.libreria.dto.VentaDto;
 import com.martinsaman.libreria.persistence.ILibro;
 import com.martinsaman.libreria.persistence.Libro;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +16,11 @@ import java.util.Optional;
 @Service
 public class LIbroService {
 
-
     @Autowired
     private ILibro repo;
+
+    @Autowired
+    private VentaClient ventaClient;
 
     public ResponseEntity<List<Libro>> findAll() {
         return new ResponseEntity<>(repo.findAll(), HttpStatus.OK);
@@ -44,6 +48,17 @@ public class LIbroService {
     ) {
         repo.delete(libro);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<Object> vender(
+            VentaDto ventaDto
+    ){
+        if(repo.findById(ventaDto.getLibro().getIsbnLibro()).isPresent()){
+            ResponseEntity<VentaDto> rpta = ventaClient.save(ventaDto);
+            return new ResponseEntity<>(rpta.getBody(),rpta.getStatusCode());
+        }else {
+            return new ResponseEntity<>("El libro no existe xd",HttpStatus.NOT_FOUND);
+        }
     }
 
 }

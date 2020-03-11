@@ -5,9 +5,10 @@ import com.martinsaman.libreria.persistence.Libro;
 
 public class VentaDto {
 
-    Libro libro;
-    Integer cantidad;
-    Double total;
+    private Long id;
+    private Libro libro;
+    private Integer cantidad;
+    private Double total;
 
     public Libro getLibro() {
         return libro;
@@ -31,5 +32,13 @@ public class VentaDto {
 
     public void setTotal(Double total) {
         this.total = total;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

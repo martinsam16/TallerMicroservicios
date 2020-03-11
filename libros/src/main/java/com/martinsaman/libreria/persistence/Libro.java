@@ -13,6 +13,14 @@ public class Libro implements Serializable {
     private String nombreLibro;
     private Double precioLibro;
 
+    public Libro() {
+    }
+
+    public Libro(String isbnLibro, String nombreLibro, Double precioLibro){
+        this.isbnLibro = isbnLibro;
+        this.nombreLibro = nombreLibro;
+        this.precioLibro = precioLibro;
+    }
 
     public String getIsbnLibro() {
         return isbnLibro;
