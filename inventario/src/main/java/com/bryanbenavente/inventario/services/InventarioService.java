@@ -29,6 +29,7 @@ public class InventarioService {
     }
 
     public ResponseEntity<Inventario> save(Inventario inventario) {
+        System.out.println(inventario.getLibro());
         repoLibro.save(inventario.getLibro());
         return new ResponseEntity<>(repoInventario.save(inventario), HttpStatus.CREATED);
     }

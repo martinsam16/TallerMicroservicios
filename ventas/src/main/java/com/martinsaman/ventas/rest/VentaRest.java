@@ -1,5 +1,7 @@
 package com.martinsaman.ventas.rest;
 
+import com.martinsaman.ventas.dto.InventarioDto;
+import com.martinsaman.ventas.persistence.Libro;
 import com.martinsaman.ventas.persistence.Venta;
 import com.martinsaman.ventas.services.VentaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ public class VentaRest {
 
     @Autowired
     private VentaService ventaService;
+
 
     @GetMapping
     public ResponseEntity<List<Venta>> findAll(){
@@ -41,4 +44,12 @@ public class VentaRest {
     ){
         return ventaService.delete(venta);
     }
+
+    @PostMapping("/inventario")
+    public ResponseEntity<Object> vender(
+            @RequestBody InventarioDto inventarioDto
+    ){
+        return ventaService.inventario(inventarioDto);
+    }
+
 }

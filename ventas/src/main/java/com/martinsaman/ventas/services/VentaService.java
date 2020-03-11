@@ -1,7 +1,10 @@
 package com.martinsaman.ventas.services;
 
+import com.martinsaman.ventas.clients.InventarioClient;
+import com.martinsaman.ventas.dto.InventarioDto;
 import com.martinsaman.ventas.persistence.ILibro;
 import com.martinsaman.ventas.persistence.IVenta;
+import com.martinsaman.ventas.persistence.Libro;
 import com.martinsaman.ventas.persistence.Venta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,9 @@ public class VentaService {
 
     @Autowired
     private ILibro repoLibro;
+
+    @Autowired
+    private InventarioClient inventarioClient;
 
     public ResponseEntity<List<Venta>> findAll(){
         return new ResponseEntity<>(repoVenta.findAll(),HttpStatus.OK);
@@ -48,6 +54,18 @@ public class VentaService {
     ){
         repoVenta.delete(venta);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<Object> inventario(
+            InventarioDto inventarioDto
+    ){
+        System.out.println(inventarioDto.getLibro().getIsbnLibro());
+        if(repoLibro.findById(inventarioDto.getLibro().getIsbnLibro()).isPresent()){
+            ResponseEntity<InventarioDto> rpta = inventarioClient.save(inventarioDto);
+            return new ResponseEntity<>(rpta.getBody(),rpta.getStatusCode());
+        }else {
+            return new ResponseEntity<>("No se encuentra registrado",HttpStatus.NOT_FOUND);
+        }
     }
 
 }

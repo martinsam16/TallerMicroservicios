@@ -21,17 +21,17 @@ public class InventarioRest {
     }
 
     @PostMapping
-    public ResponseEntity<Inventario> create(Inventario inventario) {
+    public ResponseEntity<Inventario> create(@RequestBody Inventario inventario) {
         return inventarioService.save(inventario);
     }
 
     @PutMapping
-    public ResponseEntity<Inventario> update(Inventario inventario) {
+    public ResponseEntity<Inventario> update(@RequestBody Inventario inventario) {
         return inventarioService.save(inventario);
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> delete(Inventario inventario) {
+    public ResponseEntity<Void> delete(@RequestBody Inventario inventario) {
         return inventarioService.delete(inventario);
     }
 }
