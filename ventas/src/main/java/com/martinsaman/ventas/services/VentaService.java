@@ -59,7 +59,6 @@ public class VentaService {
     public ResponseEntity<Object> inventario(
             InventarioDto inventarioDto
     ){
-        System.out.println(inventarioDto.getLibro().getIsbnLibro());
         if(repoLibro.findById(inventarioDto.getLibro().getIsbnLibro()).isPresent()){
             ResponseEntity<InventarioDto> rpta = inventarioClient.save(inventarioDto);
             return new ResponseEntity<>(rpta.getBody(),rpta.getStatusCode());
