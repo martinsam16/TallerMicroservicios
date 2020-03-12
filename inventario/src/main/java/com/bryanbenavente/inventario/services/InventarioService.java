@@ -30,7 +30,6 @@ public class InventarioService {
     }
 
     public ResponseEntity<Inventario> save(Inventario inventario) {
-        System.out.println(inventario.getLibro());
         repoLibro.save(inventario.getLibro());
         return new ResponseEntity<>(repoInventario.save(inventario), HttpStatus.CREATED);
     }
@@ -49,15 +48,30 @@ public class InventarioService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public ResponseEntity<Object> libro(
-            Libro libro
+    public ResponseEntity<Object> inventario(
+            Inventario inventario
     ){
-        if(repoLibro.findById(libro.getIsbnLibro()).isPresent()){
-            ResponseEntity<Libro> rpta = libroClient.save(libro);
+        if (inventario.getTipo().equals("I")){
+            ResponseEntity<Libro> rpta = libroClient.save(inventario.getLibro());
+            if (rpta.getStatusCode() == HttpStatus.CREATED){
+                return new ResponseEntity<>(save(inventario),HttpStatus.CREATED);
+            }
             return new ResponseEntity<>(rpta.getBody(),rpta.getStatusCode());
-        }else {
-            return new ResponseEntity<>("No se encuentra registrado",HttpStatus.NOT_FOUND);
+        }else{
+            if(repoLibro.findById(inventario.getLibro().getIsbnLibro()).isPresent()){
+                Optional<Integer> totalLibros = repoInventario.totalLibros(inventario.getLibro().getIsbnLibro());
+                System.out.println("Total libros:"+totalLibros);
+                if (totalLibros.isPresent()){
+                    if (inventario.getCantidad() > totalLibros.get()){
+                        return new ResponseEntity<>("No puedes sacar mas de lo que tienes xd",HttpStatus.BAD_REQUEST);
+                    }
+                }
+                return new ResponseEntity<>(save(inventario),HttpStatus.CREATED);
+            }else {
+                return new ResponseEntity<>("No esta inventariado xd",HttpStatus.NO_CONTENT);
+            }
         }
+
     }
 
 }

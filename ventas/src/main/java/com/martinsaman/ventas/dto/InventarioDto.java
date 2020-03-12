@@ -17,6 +17,15 @@ public class InventarioDto {
     Integer cantidad;
     String tipo;
 
+    public InventarioDto() {
+    }
+
+    public InventarioDto(Libro libro, Integer cantidad, String tipo) {
+        this.libro = libro;
+        this.cantidad = cantidad;
+        this.tipo = tipo;
+    }
+
     public Long getId() {
         return id;
     }

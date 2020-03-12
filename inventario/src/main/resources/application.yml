@@ -7,7 +7,7 @@ feign:
 
 spring:
   datasource:
-    url: jdbc:h2:mem:Libro
+    url: jdbc:h2:mem:Inventario
     driver-class-name: org.h2.Driver
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect

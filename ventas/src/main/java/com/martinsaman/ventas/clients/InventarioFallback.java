@@ -16,7 +16,7 @@ public class InventarioFallback implements InventarioClient {
     }
 
     @Override
-    public ResponseEntity<InventarioDto> save(InventarioDto inventario) {
+    public ResponseEntity<Object> save(InventarioDto inventario) {
         System.out.println("Error en el servicio de inventario");
         return new ResponseEntity<>(null, HttpStatus.REQUEST_TIMEOUT);
     }
@@ -30,5 +30,6 @@ public class InventarioFallback implements InventarioClient {
     public ResponseEntity<Void> delete(InventarioDto inventario) {
         return null;
     }
+
 
 }

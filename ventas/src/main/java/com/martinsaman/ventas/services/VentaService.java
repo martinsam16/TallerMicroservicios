@@ -34,8 +34,15 @@ public class VentaService {
             Venta venta
     ) {
         venta.calcularTotal();
-        repoLibro.save(venta.getLibro());   //TODO sync con kafka
-        return new ResponseEntity<>(repoVenta.save(venta), HttpStatus.CREATED);
+        InventarioDto inventarioDto = new InventarioDto(venta.getLibro(),venta.getCantidad(),"O");
+        ResponseEntity<Object> rpta = inventarioClient.save(inventarioDto);
+
+        if (rpta.getStatusCode() == HttpStatus.CREATED){
+            repoLibro.save(venta.getLibro());   //TODO sync con kafka
+            return new ResponseEntity<>(repoVenta.save(venta), HttpStatus.REQUEST_TIMEOUT);
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.REQUEST_TIMEOUT);
     }
 
     public ResponseEntity<Venta> update(
@@ -56,15 +63,5 @@ public class VentaService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public ResponseEntity<Object> inventario(
-            InventarioDto inventarioDto
-    ){
-        if(repoLibro.findById(inventarioDto.getLibro().getIsbnLibro()).isPresent()){
-            ResponseEntity<InventarioDto> rpta = inventarioClient.save(inventarioDto);
-            return new ResponseEntity<>(rpta.getBody(),rpta.getStatusCode());
-        }else {
-            return new ResponseEntity<>("No se encuentra registrado",HttpStatus.NOT_FOUND);
-        }
-    }
 
 }

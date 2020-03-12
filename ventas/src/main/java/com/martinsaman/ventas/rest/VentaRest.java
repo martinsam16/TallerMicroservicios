@@ -1,11 +1,8 @@
 package com.martinsaman.ventas.rest;
 
-import com.martinsaman.ventas.dto.InventarioDto;
-import com.martinsaman.ventas.persistence.Libro;
 import com.martinsaman.ventas.persistence.Venta;
 import com.martinsaman.ventas.services.VentaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,13 +40,6 @@ public class VentaRest {
             @RequestBody Venta venta
     ){
         return ventaService.delete(venta);
-    }
-
-    @PostMapping("/inventario")
-    public ResponseEntity<Object> vender(
-            @RequestBody InventarioDto inventarioDto
-    ){
-        return ventaService.inventario(inventarioDto);
     }
 
 }

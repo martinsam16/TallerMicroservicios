@@ -1,7 +1,6 @@
 package com.bryanbenavente.inventario.rest;
 
 import com.bryanbenavente.inventario.persistence.Inventario;
-import com.bryanbenavente.inventario.persistence.Libro;
 import com.bryanbenavente.inventario.services.InventarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +21,9 @@ public class InventarioRest {
     }
 
     @PostMapping
-    public ResponseEntity<Inventario> create(@RequestBody Inventario inventario) {
-        return inventarioService.save(inventario);
+    public ResponseEntity<Object> save(@RequestBody Inventario inventario) {
+        System.out.println("Peticion en inventario :D");
+        return inventarioService.inventario(inventario);
     }
 
     @PutMapping
@@ -34,14 +34,6 @@ public class InventarioRest {
     @DeleteMapping
     public ResponseEntity<Void> delete(@RequestBody Inventario inventario) {
         return inventarioService.delete(inventario);
-    }
-
-    @PostMapping("/libro")
-    public ResponseEntity<Object> vender(
-            @RequestBody Inventario inventario
-    ){
-        inventarioService.save(inventario);
-        return inventarioService.libro(inventario.getLibro());
     }
 
 }

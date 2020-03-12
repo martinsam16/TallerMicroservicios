@@ -14,7 +14,7 @@ public interface InventarioClient {
     ResponseEntity<List<InventarioDto>> findAll();
 
     @PostMapping
-    ResponseEntity<InventarioDto> save(
+    ResponseEntity<Object> save(
             @RequestBody InventarioDto inventario
     );
 
