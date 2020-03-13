@@ -18,3 +18,11 @@ spring:
       settings:
         web-allow-others: true
         trace: false
+  application:
+    name: libro
+
+eureka:
+  client:
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://${registry.host:localhost}:${registry.port:8761}/eureka/

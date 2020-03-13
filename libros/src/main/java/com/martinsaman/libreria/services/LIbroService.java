@@ -20,7 +20,7 @@ public class LIbroService {
     private ILibro repo;
 
     @Autowired
-    private VentaClient ventaClient;
+    private VentaClient venta;
 
     public ResponseEntity<List<Libro>> findAll() {
         return new ResponseEntity<>(repo.findAll(), HttpStatus.OK);
@@ -54,7 +54,7 @@ public class LIbroService {
             VentaDto ventaDto
     ){
         if(repo.findById(ventaDto.getLibro().getIsbnLibro()).isPresent()){
-            ResponseEntity<VentaDto> rpta = ventaClient.save(ventaDto);
+            ResponseEntity<VentaDto> rpta = venta.save(ventaDto);
             return new ResponseEntity<>(rpta.getBody(),rpta.getStatusCode());
         }else {
             return new ResponseEntity<>("El libro no existe xd",HttpStatus.NOT_FOUND);

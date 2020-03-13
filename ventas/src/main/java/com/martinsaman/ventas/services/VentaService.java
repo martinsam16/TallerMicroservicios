@@ -4,7 +4,6 @@ import com.martinsaman.ventas.clients.InventarioClient;
 import com.martinsaman.ventas.dto.InventarioDto;
 import com.martinsaman.ventas.persistence.ILibro;
 import com.martinsaman.ventas.persistence.IVenta;
-import com.martinsaman.ventas.persistence.Libro;
 import com.martinsaman.ventas.persistence.Venta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +23,7 @@ public class VentaService {
     private ILibro repoLibro;
 
     @Autowired
-    private InventarioClient inventarioClient;
+    private InventarioClient inventario;
 
     public ResponseEntity<List<Venta>> findAll(){
         return new ResponseEntity<>(repoVenta.findAll(),HttpStatus.OK);
@@ -35,7 +34,7 @@ public class VentaService {
     ) {
         venta.calcularTotal();
         InventarioDto inventarioDto = new InventarioDto(venta.getLibro(),venta.getCantidad(),"O");
-        ResponseEntity<Object> rpta = inventarioClient.save(inventarioDto);
+        ResponseEntity<Object> rpta = inventario.save(inventarioDto);
 
         if (rpta.getStatusCode() == HttpStatus.CREATED){
             repoLibro.save(venta.getLibro());   //TODO sync con kafka

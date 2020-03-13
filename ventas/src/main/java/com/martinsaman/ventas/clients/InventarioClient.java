@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "inventarioClient",url = "localhost:2022",fallback = InventarioFallback.class)
+@FeignClient(name = "inventario",fallback = InventarioFallback.class)
 public interface InventarioClient {
 
     @GetMapping

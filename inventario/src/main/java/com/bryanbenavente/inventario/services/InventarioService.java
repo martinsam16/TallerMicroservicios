@@ -23,7 +23,7 @@ public class InventarioService {
     private IInventario repoInventario;
 
     @Autowired
-    private LibroClient libroClient;
+    private LibroClient libro;
 
     public ResponseEntity<List<Inventario>> findAll() {
         return new ResponseEntity<>(repoInventario.findAll(), HttpStatus.OK);
@@ -52,7 +52,7 @@ public class InventarioService {
             Inventario inventario
     ){
         if (inventario.getTipo().equals("I")){
-            ResponseEntity<Libro> rpta = libroClient.save(inventario.getLibro());
+            ResponseEntity<Libro> rpta = libro.save(inventario.getLibro());
             if (rpta.getStatusCode() == HttpStatus.CREATED){
                 return new ResponseEntity<>(save(inventario),HttpStatus.CREATED);
             }
