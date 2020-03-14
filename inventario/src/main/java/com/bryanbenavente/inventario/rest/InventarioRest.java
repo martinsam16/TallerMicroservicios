@@ -22,7 +22,6 @@ public class InventarioRest {
 
     @PostMapping
     public ResponseEntity<Object> save(@RequestBody Inventario inventario) {
-        System.out.println("Peticion en inventario :D");
         return inventarioService.inventario(inventario);
     }
 

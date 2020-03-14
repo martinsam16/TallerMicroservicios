@@ -23,6 +23,7 @@ public class LibreriaApplication {
     @Bean
     CommandLineRunner preloadData(ILibro repo) {
         return args -> {
+            repo.deleteAll();
             repo.save(new Libro("09876543","A 200 millas",200.8));
             repo.save(new Libro("12345678","Mi lucha, tu lucha nuestra lucha",23.2));
         };
